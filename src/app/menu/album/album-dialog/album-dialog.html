@@ -1,0 +1,31 @@
+<h1 matDialogTitle>Formulário</h1>
+<div mat-dialog-content>
+    <form class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" [formGroup]="formEntity">
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field style="margin-right: 10px" appearance="outline" fxFlex="40" class="pr-4">
+                <mat-label>Titulo</mat-label>
+                <input matInput formControlName="title" required />
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <mat-error *ngIf="formEntity.controls.title.hasError('required')">
+                    Campo obrigatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="20" class="pr-4">
+                <mat-label>Usuario</mat-label>
+                <mat-select formControlName="userId">
+                    <mat-option [value]="null">
+                        Selecione...</mat-option>
+                    <mat-option matTooltip="{{user.name}}" *ngFor="let user of users" [value]="user.id">
+                        {{user.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="pt-24">
+    <button mat-raised-button class="mat-accent mr-16" (click)="saveEntity()">Salvar</button>
+    <button mat-button color="warn" (click)="dialogRef.close(false)">Cancelar</button>
+    <button mat-raised-button color="primary" class="mr-16" (click)="createFormClean()"
+        style="float: right;" type="reset">Limpar</button>
+</div>

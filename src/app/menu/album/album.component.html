@@ -1,0 +1,41 @@
+<button mat-icon-button (click)="saveOrEditAlbum(null);"><mat-icon>add</mat-icon> Adicionar album</button>
+<div class="album-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- id Column -->
+    <ng-container matColumnDef="id" class="columnId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="columnId"> Id </th>
+      <td mat-cell *matCellDef="let album"> {{album.id}} </td>
+    </ng-container>
+
+    <!-- title Column -->
+    <ng-container matColumnDef="title" class="columnTitle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="columnTitle"> Título </th>
+      <td mat-cell *matCellDef="let album"> {{album.title}}
+      </td>
+    </ng-container>
+
+    <!-- userId Column -->
+    <ng-container matColumnDef="userId" class="columnUserId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="columnUserId"> Usuário </th>
+      <td mat-cell *matCellDef="let album"> {{getUserName(album.userId)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acctions" class="columnAcctions">
+      <th mat-header-cell *matHeaderCellDef class="columnAcctions"> Ação </th>
+      <td mat-cell *matCellDef="let album"> <span>
+          <button mat-icon-button (click)="saveOrEditAlbum(album); $event.stopPropagation();">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteAlbum(album); $event.stopPropagation();">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
